@@ -7,12 +7,14 @@ $(document).ready(function() {
     // Tramite click stampare il mese successivo
 
     var dataIniziale = moment('2018-01-01');
+    var chiamoMese = 0;
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
     stampaFestivi();
 
     $('.mese-succ').click(function() {
         if (dataIniziale.month() != 11) {
             dataIniziale.add(1, 'month');
+            chiamoMese += 1;
             stampaGiorniMese(dataIniziale);
             stampaFestivi();
         } else{
@@ -22,6 +24,7 @@ $(document).ready(function() {
     $('.mese-prec').click(function() {
         if (dataIniziale.month() != 0) {
             dataIniziale.subtract(1, 'month');
+            chiamoMese -= 1;
             stampaGiorniMese(dataIniziale);
             stampaFestivi();
         } else{
@@ -35,7 +38,7 @@ $(document).ready(function() {
             method: 'GET',
             data: {
                 year: 2018,
-                month: 0
+                month: chiamoMese
             },
             success: function(data) {
                 var giorniFestivi = data.response;
