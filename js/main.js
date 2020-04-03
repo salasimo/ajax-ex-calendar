@@ -1,5 +1,4 @@
-
-$(document).ready(function () {
+$(document).ready(function() {
 
     var htmlGiorno = $('#calendar-template').html();
     var templateGiorno = Handlebars.compile(htmlGiorno);
@@ -11,9 +10,23 @@ $(document).ready(function () {
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
     stampaFestivi();
 
-    $('.mese-succ').click(function () {
-        dataIniziale.add(1, 'month');
-        stampaGiorniMese(dataIniziale);
+    $('.mese-succ').click(function() {
+        if (dataIniziale.month() != 11) {
+            dataIniziale.add(1, 'month');
+            stampaGiorniMese(dataIniziale);
+            stampaFestivi();
+        } else{
+            alert("Il calendario comprende solo l'anno 2018");
+        }
+    });
+    $('.mese-prec').click(function() {
+        if (dataIniziale.month() != 0) {
+            dataIniziale.subtract(1, 'month');
+            stampaGiorniMese(dataIniziale);
+            stampaFestivi();
+        } else{
+            alert("Il calendario comprende solo l'anno 2018");
+        }
     });
 
     function stampaFestivi() {
@@ -24,7 +37,7 @@ $(document).ready(function () {
                 year: 2018,
                 month: 0
             },
-            success: function (data) {
+            success: function(data) {
                 var giorniFestivi = data.response;
                 for (var i = 0; i < giorniFestivi.length; i++) {
                     var giornoFestivo = giorniFestivi[i];
@@ -32,6 +45,9 @@ $(document).ready(function () {
                     var dataFestivo = giornoFestivo.date;
                     $('#calendar li[data-day="' + dataFestivo + '"]').addClass('festivo').append(' - ' + nomeFestivo);
                 }
+            },
+            error: function(err) {
+                alert("Errore AJAX");
             }
         });
     }
