@@ -55,7 +55,7 @@ $(document).ready(function() {
                     var giornoFestivo = giorniFestivi[i];
                     var nomeFestivo = giornoFestivo.name;
                     var dataFestivo = giornoFestivo.date;
-                    $('#calendar div[data-day="' + dataFestivo + '"]').addClass('festivo').append(' - ' + nomeFestivo);
+                    $('#calendar div[data-day="' + dataFestivo + '"]').addClass('festivo').append("<p>"+nomeFestivo+"</p>");
                 }
             },
             error: function(err) {

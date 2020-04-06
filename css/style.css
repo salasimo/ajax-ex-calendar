@@ -6,21 +6,19 @@
 
 /* TOP CALENDAR
 ================ */
-body{
+body {
     font-family: "Montserrat", sans-serif;
     background-color: #252627;
 }
 
-.page-container{
+.page-container {
     position: absolute;
     top: 50vh;
     left: 50vw;
-    transform: translate(-50%,-50%);
-
-
+    transform: translate(-50%, -50%);
 }
 
-.top-calendar{
+.top-calendar {
     height: 120px;
     width: calc(100vw / 9 * 7);
     max-width: calc(1200px / 9 * 7);
@@ -32,21 +30,35 @@ body{
     justify-content: space-between;
     padding: 20px;
     border-radius: 25px 25px 0 0;
-    box-shadow: 5px #1d1d1d;
-
-
 }
 
-h1{
+h1 {
     font-weight: 400;
 }
-h1 span{
+
+h1 span {
     font-weight: 700;
 }
 
+
+button.btn-navigation {
+    padding: 5px 20px;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    background-color: #1d1d1d;
+    color: white;
+    cursor: pointer;
+}
+
+button.btn-navigation:disabled {
+    background-color: #c7c7c7;
+    color: #d6d6d6;
+    cursor: not-allowed;
+}
+
+
 /* MAIN CALENDAR
 ================= */
-
 #calendar {
     width: calc(100vw / 9 * 7);
     max-width: calc(1200px / 9 * 7);
@@ -56,33 +68,30 @@ h1 span{
     max-height: calc(1200px / 9 * 6);
     display: flex;
     flex-wrap: wrap;
-    background-color:#252627;
+    background-color: #252627;
     align-content: flex-start;
     border-radius: 0 0 25px 25px;
-    background-image: url("../img/noise.png");
-
-
-
 }
 
-.day-blank, .block-day{
+.day-blank, .block-day {
     flex-basis: calc(100% / 7);
     flex-grow: 0;
     flex-shrink: 0;
     height: calc(100% / 6);
 }
 
-.day-blank{
-    opacity: 0;
+.day-blank {
+    background-color: #1d1d1d;
 }
 
-.block-day{
+.block-day {
     overflow: hidden;
     background-color: #2E2E2E;
     position: relative;
 }
-.block-day span{
-    color: rgba(255,255,255,0.15);
+
+.block-day span {
+    color: rgba(255, 255, 255, 0.15);
     font-size: 40px;
     font-weight: 700;
     line-height: 0.75;
@@ -91,26 +100,17 @@ h1 span{
     right: 0;
 }
 
-.block-day:nth-child(odd){
+.block-day.festivo span {
+    color: #4c2525;
+}
+
+.block-day p {
+    word-break: break-word;
+    font-weight: 700;
+    font-size: 20px;
+    color: #4c2525;
+}
+
+.block-day:nth-child(odd) {
     background-color: #2C2C2C;
-}
-
-.festivo {
-    color: red;
-}
-
-button.btn-navigation {
-    padding: 5px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #1d1d1d;
-    color: white;
-    cursor: pointer;
-}
-
-
-button.btn-navigation:disabled {
-    background-color: lightgrey;
-    color: #1d1d1d;
-    cursor: not-allowed;
 }
