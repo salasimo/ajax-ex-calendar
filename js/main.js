@@ -7,16 +7,14 @@ $(document).ready(function() {
     // Tramite click stampare il mese successivo
 
     var dataIniziale = moment('2018-01-01');
-    var chiamoMese = 0;
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
-    stampaFestivi();
+    stampaFestivi(dataIniziale);
 
     $('.mese-succ').click(function() {
         if (dataIniziale.month() != 11) {
             dataIniziale.add(1, 'month');
-            chiamoMese += 1;
             stampaGiorniMese(dataIniziale);
-            stampaFestivi();
+            stampaFestivi(dataIniziale);
         } else{
             alert("Il calendario comprende solo l'anno 2018");
         }
@@ -24,21 +22,20 @@ $(document).ready(function() {
     $('.mese-prec').click(function() {
         if (dataIniziale.month() != 0) {
             dataIniziale.subtract(1, 'month');
-            chiamoMese -= 1;
             stampaGiorniMese(dataIniziale);
-            stampaFestivi();
+            stampaFestivi(dataIniziale);
         } else{
             alert("Il calendario comprende solo l'anno 2018");
         }
     });
 
-    function stampaFestivi() {
+    function stampaFestivi(variabileMeseCorrente) {
         $.ajax({
             url: 'https://flynn.boolean.careers/exercises/api/holidays',
             method: 'GET',
             data: {
-                year: 2018,
-                month: chiamoMese
+                year: variabileMeseCorrente.year(),
+                month: variabileMeseCorrente.month()
             },
             success: function(data) {
                 var giorniFestivi = data.response;
