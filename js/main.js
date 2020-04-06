@@ -3,6 +3,11 @@ $(document).ready(function() {
     var htmlGiorno = $('#calendar-template').html();
     var templateGiorno = Handlebars.compile(htmlGiorno);
 
+    // var htmlSlittamento = $('#slittamento-template').html();
+    // var templateSlittamento = Handlebars.compile(htmlSlittamento);
+
+
+
     // Stampare il mese di Gennaio 2018
     // Tramite click stampare il mese successivo
 
@@ -61,21 +66,28 @@ $(document).ready(function() {
 
     function stampaGiorniMese(meseDaStampare) {
         $('#calendar').empty();
+
+        var firstWeekDay = moment(meseDaStampare).isoWeekday();
+        var slittamentoInizioMese = firstWeekDay - 1;
+
         var standardDay = meseDaStampare.clone();
         var giorniMese = meseDaStampare.daysInMonth();
         var nomeMese = meseDaStampare.format('MMMM');
         $('#nome-mese').text(nomeMese); // Aggiorniamo il nome del mese in top calendar
         for (var i = 1; i <= giorniMese; i++) {
-            // $('#calendar').append('<li>' + i + ' ' + nomeMese + '</li>');
             var giornoDaInserire = {
-                day: i + ' ' + nomeMese,
+                day: i,
                 dataDay: standardDay.format('YYYY-MM-DD')
             }
             var templateFinale = templateGiorno(giornoDaInserire); // Stiamo popolando il template con i dati dell'oggetto
             $('#calendar').append(templateFinale);
             standardDay.add(1, 'day');
         }
+        for (var i = 0; i < slittamentoInizioMese; i++) {
+            $("#calendar").prepend('<div class="day-blank"></div>');
+            console.log("aggiunto")
+        }
+
+
     }
-
-
 });
