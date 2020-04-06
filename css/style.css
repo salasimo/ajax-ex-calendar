@@ -1,16 +1,76 @@
-.top-calendar,
-.main-calendar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#calendar li,
-#nome-mese {
-    text-transform: capitalize;
+/* TOP CALENDAR
+================ */
+body{
+    font-family: "Montserrat", sans-serif;
+}
+
+.top-calendar{
+    height: 120px;
+    width: calc(100vw / 10 * 7);
+    margin: 0 auto;
+    background-color: #252627;
+    color: #C7C7C7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+
+}
+
+h1{
+    font-weight: 400;
+}
+h1 span{
+    font-weight: 700;
+}
+
+/* MAIN CALENDAR
+================= */
+
+#calendar {
+    width: calc(100vw / 10 * 7);
+    /* min-width: 740px; */
+    margin: 0 auto;
+    /* height: calc(100vh - 120px); */
+    display: flex;
+    flex-wrap: wrap;
+
+
+}
+
+.block-day{
+    overflow: hidden;
+    flex-basis: calc(100vw / 10);
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    height: calc(100vw / 10);
+
+    border: 1px solid grey;
 }
 
 .festivo {
     color: red;
+}
+
+button.btn-navigation {
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1d1d1d;
+    color: white;
+    cursor: pointer;
+}
+
+
+button.btn-navigation:disabled {
+    background-color: lightgrey;
+    color: #1d1d1d;
+    cursor: not-allowed;
 }

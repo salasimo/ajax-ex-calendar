@@ -7,25 +7,32 @@ $(document).ready(function() {
     // Tramite click stampare il mese successivo
 
     var dataIniziale = moment('2018-01-01');
+    var limiteIniziale = moment('2018-01-01');
+    var limiteFinale = moment('2018-12-01');
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
     stampaFestivi(dataIniziale);
 
     $('.mese-succ').click(function() {
-        if (dataIniziale.month() != 11) {
-            dataIniziale.add(1, 'month');
-            stampaGiorniMese(dataIniziale);
-            stampaFestivi(dataIniziale);
-        } else{
-            alert("Il calendario comprende solo l'anno 2018");
+        $('.mese-prec').prop('disabled', false);
+        dataIniziale.add(1, 'month');
+        stampaGiorniMese(dataIniziale);
+        stampaFestivi(dataIniziale);
+        if (dataIniziale.isSameOrAfter(limiteFinale)) {
+            $(".mese-succ").prop("disabled", true);
         }
     });
+
     $('.mese-prec').click(function() {
-        if (dataIniziale.month() != 0) {
+        if (dataIniziale.isSameOrBefore(limiteIniziale)) {
+            alert("Hai prbvato ad hackerarmi!");
+
+        } else {
             dataIniziale.subtract(1, 'month');
             stampaGiorniMese(dataIniziale);
             stampaFestivi(dataIniziale);
-        } else{
-            alert("Il calendario comprende solo l'anno 2018");
+            if (dataIniziale.isSameOrBefore(limiteIniziale)) {
+                $(".mese-prec").prop("disabled", true);
+            }
         }
     });
 
@@ -43,7 +50,7 @@ $(document).ready(function() {
                     var giornoFestivo = giorniFestivi[i];
                     var nomeFestivo = giornoFestivo.name;
                     var dataFestivo = giornoFestivo.date;
-                    $('#calendar li[data-day="' + dataFestivo + '"]').addClass('festivo').append(' - ' + nomeFestivo);
+                    $('#calendar div[data-day="' + dataFestivo + '"]').addClass('festivo').append(' - ' + nomeFestivo);
                 }
             },
             error: function(err) {
@@ -69,5 +76,6 @@ $(document).ready(function() {
             standardDay.add(1, 'day');
         }
     }
+
 
 });
